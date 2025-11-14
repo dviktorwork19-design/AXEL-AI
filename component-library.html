@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Coach - Component Library</title>
+    <style>
+        :root {
+            --primary-bg: #0B1220;
+            --secondary-bg: #111827;
+            --surface: #0F172A;
+            --panel: #0E1330;
+            --text-primary: #E6EAF2;
+            --text-secondary: #A5B0C3;
+            --accent: #22D3EE;
+            --action: #6366F1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --divider: #1F2A44;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .section {
+            padding: 64px 0;
+        }
+        
+        .section-title {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+        
+        .component-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 42, 68, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .component-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon-container.primary { background: rgba(34, 211, 238, 0.2); }
+        .icon-container.secondary { background: rgba(99, 102, 241, 0.2); }
+        .icon-container.success { background: rgba(16, 185, 129, 0.2); }
+        .icon-container.warning { background: rgba(245, 158, 11, 0.2); }
+        .icon-container.error { background: rgba(239, 68, 68, 0.2); }
+        
+        .icon-name {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--divider);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+        
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.4);
+            color: var(--text-primary);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--divider);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+        
+        .input-field::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 42, 68, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 42, 68, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .mobile-frame {
+            width: 393px;
+            height: 852px;
+            background: var(--primary-bg);
+            border-radius: 47px;
+            padding: 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-bg);
+            border-radius: 37px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .nav-bar {
+            height: 88px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 88px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 24px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .mobile-frame {
+                width: 100%;
+                max-width: 393px;
+                height: auto;
+                aspect-ratio: 393/852;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="section" style="background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%); color: white;">
+        <div class="container">
+            <h1 class="section-title" style="color: white;">Component Library</h1>
+            <p style="text-align: center; font-size: 18px; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: 0 auto;">
+                Reusable components and icons for the AI Business Coach mobile app
+            </p>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Buttons</h2>
+            <p class="section-subtitle">Interactive button components with different styles and states</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="component-title">Primary Button</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <button class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5l7 7-7 7"/>
+                            </svg>
+                            Start Free Trial
+                        </button>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Gradient background, white text, hover lift effect
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Secondary Button</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <button class="btn btn-secondary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            Watch Demo
+                        </button>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Glass background, border, hover darkening
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Ghost Button</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <button class="btn btn-ghost">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Learn More
+                        </button>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Transparent background, subtle hover effect
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Button States</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <button class="btn btn-primary" style="opacity: 1;">
+                            Default State
+                        </button>
+                        <button class="btn btn-primary" style="opacity: 0.8; transform: translateY(-2px);">
+                            Hover State
+                        </button>
+                        <button class="btn btn-primary" style="opacity: 0.6; transform: scale(0.98);">
+                            Active State
+                        </button>
+                        <button class="btn btn-primary" style="opacity: 0.4; cursor: not-allowed;">
+                            Disabled State
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Elements -->
+    <div class="section" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2 class="section-title">Form Elements</h2>
+            <p class="section-subtitle">Input fields, labels, and form components</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="component-title">Text Input</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Full Name</label>
+                            <input type="text" class="input-field" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Email Address</label>
+                            <input type="email" class="input-field" placeholder="Enter your email">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Password</label>
+                            <input type="password" class="input-field" placeholder="Create a password">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Input States</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Default</label>
+                            <input type="text" class="input-field" placeholder="Default input state">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Focused</label>
+                            <input type="text" class="input-field" style="border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);" placeholder="Focused input state">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Filled</label>
+                            <input type="text" class="input-field" value="john.doe@example.com" readonly>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Disabled</label>
+                            <input type="text" class="input-field" style="opacity: 0.5; cursor: not-allowed;" placeholder="Disabled input" disabled>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Form Layout</h3>
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: grid; gap: 16px;">
+                            <div>
+                                <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Company Name</label>
+                                <input type="text" class="input-field" placeholder="Your company name">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div>
+                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Industry</label>
+                                    <select class="input-field">
+                                        <option>Select industry</option>
+                                        <option>Technology</option>
+                                        <option>Healthcare</option>
+                                        <option>Finance</option>
+                                        <option>Education</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px;">Team Size</label>
+                                    <select class="input-field">
+                                        <option>Select size</option>
+                                        <option>1-5</option>
+                                        <option>6-20</option>
+                                        <option>21-50</option>
+                                        <option>50+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards & Containers -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Cards & Containers</h2>
+            <p class="section-subtitle">Reusable card components and container styles</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="component-title">Glass Card</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="glass-card">
+                            <h4 style="font-weight: 600; margin-bottom: 8px;">Feature Card</h4>
+                            <p style="color: var(--text-secondary); font-size: 14px;">
+                                Glassmorphism effect with backdrop blur and subtle border
+                            </p>
+                        </div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Use for feature highlights, stats, and content cards
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Interactive Card</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="card">
+                            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 style="font-weight: 600;">Premium Feature</h4>
+                                    <p style="color: var(--text-secondary); font-size: 14px;">Advanced AI analysis</p>
+                                </div>
+                            </div>
+                            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+                                Get intelligent insights and recommendations based on your work patterns.
+                            </p>
+                            <button class="btn btn-primary" style="width: 100%;">
+                                Upgrade Now
+                            </button>
+                        </div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Hover effect with lift and shadow for interactive elements
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Stats Card</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="glass-card">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 32px; font-weight: 700; background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                        5,000+
+                                    </div>
+                                    <div style="color: var(--text-secondary); font-size: 14px;">Active Users</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 32px; font-weight: 700; color: var(--success);">
+                                        95%
+                                    </div>
+                                    <div style="color: var(--text-secondary); font-size: 14px;">Satisfaction Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">
+                            Perfect for metrics, KPIs, and social proof
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Icons -->
+    <div class="section" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2 class="section-title">Icon Library</h2>
+            <p class="section-subtitle">Complete set of custom icons for the AI Business Coach app</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="component-title">Navigation Icons</h3>
+                    <div class="icon-grid">
+                        <div class="icon-item">
+                            <div class="icon-container primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Home</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container secondary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Calendar</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container success">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <path d="M9 11H1v-2h8V1h2v8h8v2h-8v8h-2v-8z"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Add</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container warning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Profile</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Feature Icons</h3>
+                    <div class="icon-grid">
+                        <div class="icon-item">
+                            <div class="icon-container primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                    <line x1="12" y1="19" x2="12" y2="23"/>
+                                    <line x1="8" y1="23" x2="16" y2="23"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Voice</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container secondary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2">
+                                    <path d="M3 3v18h18"/>
+                                    <path d="M18.7 8l-5.1 5.2-3.2-3.2L3 14.8"/>
+                                    <path d="M21 3l-9 9"/>
+                                    <path d="M21 3H9v12"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Pareto</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container success">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Lightning</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container warning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                                    <path d="M12 3v18m0-18l4 4m-4-4L8 7"/>
+                                    <path d="M3 12h18m-9 9V3"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Scale</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Problem Icons</h3>
+                    <div class="icon-grid">
+                        <div class="icon-item">
+                            <div class="icon-container error">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M8 12h8"/>
+                                    <path d="M12 8v8"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Decision</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container warning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10 9 9 9 8 9"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Files</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container accent">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                    <path d="M12 2v2"/>
+                                    <path d="M5 12H3"/>
+                                    <path d="M12 22v-2"/>
+                                    <path d="M21 12h-2"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Time</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Utility Icons</h3>
+                    <div class="icon-grid">
+                        <div class="icon-item">
+                            <div class="icon-container primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="M21 21l-4.35-4.35"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Search</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container secondary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">User</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container success">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Star</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <div class="icon-container warning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                            </div>
+                            <div class="icon-name">Download</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Components -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Mobile Components</h2>
+            <p class="section-subtitle">iOS-style mobile components for the app interface</p>
+            
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3 class="component-title">Status Bar</h3>
+                    <div class="mobile-frame" style="height: auto; padding: 0;">
+                        <div class="status-bar">
+                            <span style="font-weight: 600;">9:41</span>
+                            <div style="display: flex; gap: 4px;">
+                                <div style="width: 16px; height: 16px; background: var(--text-primary); border-radius: 2px;"></div>
+                                <div style="width: 16px; height: 16px; background: var(--text-primary); border-radius: 2px;"></div>
+                                <div style="width: 16px; height: 16px; background: var(--success); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                        iOS-style status bar with time and system indicators
+                    </p>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Navigation Bar</h3>
+                    <div class="mobile-frame" style="height: auto; padding: 0;">
+                        <div class="nav-bar">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <button style="background: none; border: none; color: var(--text-primary); padding: 8px;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 12H5"/>
+                                        <path d="M12 19l-7-7 7-7"/>
+                                    </svg>
+                                </button>
+                                <h3 style="font-size: 18px; font-weight: 600;">AI Features</h3>
+                            </div>
+                            <button style="background: none; border: none; color: var(--text-primary); padding: 8px;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="M21 21l-4.35-4.35"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                        Glassmorphism navigation bar with back button and actions
+                    </p>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Bottom Navigation</h3>
+                    <div class="mobile-frame" style="height: auto; padding: 0;">
+                        <div class="bottom-nav">
+                            <a href="#" class="nav-item active">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                    <polyline points="9 22 9 12 15 12 15 22"/>
+                                </svg>
+                                Home
+                            </a>
+                            <a href="#" class="nav-item">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                Schedule
+                            </a>
+                            <a href="#" class="nav-item">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 11H1v-2h8V1h2v8h8v2h-8v8h-2v-8z"/>
+                                </svg>
+                                Add Task
+                            </a>
+                            <a href="#" class="nav-item">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                Profile
+                            </a>
+                        </div>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
+                        Tab bar with glassmorphism effect and active states
+                    </p>
+                </div>
+                
+                <div class="component-card">
+                    <h3 class="component-title">Progress Bar</h3>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 14px; font-weight: 600;">Step 1 of 4</span>
+                                <span style="font-size: 14px; color: var(--text-secondary);">25%</span>
+                            </div>
+                            <div style="height: 4px; background: var(--divider); border-radius: 2px;">
+                                <div style="width: 25%; height: 100%; background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 14px; font-weight: 600;">Profile Complete</span>
+                                <span style="font-size: 14px; color: var(--text-secondary);">75%</span>
+                            </div>
+                            <div style="height: 8px; background: var(--divider); border-radius: 4px;">
+                                <div style="width: 75%; height: 100%; background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%); border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--secondary-bg); padding: 32px 0; text-align: center; border-top: 1px solid var(--divider);">
+        <div class="container">
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                AI Business Coach - Complete Component Library
+            </p>
+            <p style="color: var(--text-secondary); font-size: 14px;">
+                Ready for Figma implementation • Mobile-first design • Export ready
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Coach - Cut 5-10 Hours Weekly</title>
+    <meta name="description" content="Voice-first AI productivity coach for entrepreneurs. Save 5-10 hours weekly with smart prioritization and decision assistance.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Anime.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    },
+                    colors: {
+                        'bg': '#0B1220',
+                        'bg-elev-1': '#111827',
+                        'surface': '#0F172A',
+                        'panel': '#0E1330',
+                        'text-primary': '#E6EAF2',
+                        'text-secondary': '#A5B0C3',
+                        'divider': '#1F2A44',
+                        'accent': '#22D3EE',
+                        'action': '#6366F1',
+                        'success': '#10B981',
+                        'warning': '#F59E0B',
+                        'error': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --bg: #0B1220;
+            --bg-elev-1: #111827;
+            --surface: #0F172A;
+            --panel: #0E1330;
+            --text-primary: #E6EAF2;
+            --text-secondary: #A5B0C3;
+            --divider: #1F2A44;
+            --accent: #22D3EE;
+            --action: #6366F1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-hero {
+            background: radial-gradient(ellipse at center, var(--bg) 0%, var(--panel) 100%);
+        }
+        
+        .gradient-cta {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 42, 68, 0.6);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .hero-phone {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .app-screen {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--divider);
+        }
+    </style>
+</head>
+<body class="dark">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-card">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-action rounded-lg flex items-center justify-center">
+                        <lucide-icon name="mic" class="w-5 h-5 text-white"></lucide-icon>
+                    </div>
+                    <span class="font-display font-bold text-xl">AI Coach</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#problem" class="text-text-secondary hover:text-text-primary transition-colors">Problem</a>
+                    <a href="#solution" class="text-text-secondary hover:text-text-primary transition-colors">Solution</a>
+                    <a href="#calculator" class="text-text-secondary hover:text-text-primary transition-colors">ROI</a>
+                    <a href="#pricing" class="text-text-secondary hover:text-text-primary transition-colors">Pricing</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="text-text-secondary hover:text-text-primary transition-colors">
+                        <lucide-icon name="play" class="w-4 h-4 mr-2"></lucide-icon>
+                        Demo
+                    </button>
+                    <button class="gradient-cta text-white px-6 py-2 rounded-xl font-semibold hover:opacity-95 transition-opacity">
+                        Start Free Trial
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 gradient-hero">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="font-display font-bold text-5xl lg:text-6xl leading-tight">
+                            Cut <span class="text-gradient">5-10 hours</span> weekly.<br>
+                            Decide with clarity.
+                        </h1>
+                        <p class="text-xl text-text-secondary leading-relaxed max-w-lg">
+                            Speak your tasks. We prioritize, schedule, and track — instantly. 
+                            The voice-first AI coach that transforms decision paralysis into action.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="gradient-cta text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-95 transition-all transform hover:scale-105">
+                            Start Free Trial — 60s Setup
+                        </button>
+                        <button class="glass-card text-text-primary px-8 py-4 rounded-xl font-semibold hover:bg-surface/80 transition-all">
+                            Watch 60s Demo
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6 text-sm text-text-secondary">
+                        <div class="flex items-center space-x-2">
+                            <lucide-icon name="check" class="w-4 h-4 text-success"></lucide-icon>
+                            <span>7-day free trial</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <lucide-icon name="check" class="w-4 h-4 text-success"></lucide-icon>
+                            <span>Cancel anytime</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <lucide-icon name="check" class="w-4 h-4 text-success"></lucide-icon>
+                            <span>GDPR ready</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="hero-phone p-6 animate-float">
+                        <div class="app-screen p-4 h-96 relative overflow-hidden">
+                            <!-- Mock App Interface -->
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="text-sm font-semibold text-accent">Morning Triage</div>
+                                    <div class="text-xs text-text-secondary">8:30 AM</div>
+                                </div>
+                                
+                                <div class="glass-card p-3 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-accent/20 rounded-full flex items-center justify-center">
+                                            <lucide-icon name="mic" class="w-4 h-4 text-accent"></lucide-icon>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="text-sm text-text-primary">"Review client proposal..."</div>
+                                            <div class="text-xs text-text-secondary">Transcribing...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-2">
+                                    <div class="glass-card p-3 rounded-lg border-l-4 border-accent">
+                                        <div class="text-sm font-semibold text-text-primary">HIGH: Client Proposal Review</div>
+                                        <div class="text-xs text-text-secondary">Est: 45 min • Impact: Revenue</div>
+                                    </div>
+                                    
+                                    <div class="glass-card p-3 rounded-lg border-l-4 border-warning">
+                                        <div class="text-sm font-semibold text-text-primary">MED: Team Standup Prep</div>
+                                        <div class="text-xs text-text-secondary">Est: 15 min • Impact: Team</div>
+                                    </div>
+                                    
+                                    <div class="glass-card p-3 rounded-lg border-l-4 border-success">
+                                        <div class="text-sm font-semibold text-text-primary">LOW: Email Cleanup</div>
+                                        <div class="text-xs text-text-secondary">Est: 20 min • Impact: Admin</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <button class="w-full gradient-cta text-white py-3 rounded-lg font-semibold text-sm">
+                                        Schedule Top 3
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-accent/10 rounded-full animate-pulse-slow"></div>
+                    <div class="absolute -bottom-6 -left-6 w-12 h-12 bg-action/10 rounded-full animate-pulse-slow" style="animation-delay: 1s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-20 bg-bg-elev-1">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl mb-4">The Entrepreneur's Dilemma</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    You're losing 5-8 hours weekly to decision paralysis, scattered notes, and priority confusion. 
+                    That's revenue time burning away.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <lucide-icon name="brain" class="w-8 h-8 text-error"></lucide-icon>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl mb-3">Decision Paralysis</h3>
+                    <p class="text-text-secondary">
+                        22% of weekly time lost to overthinking priorities and next steps
+                    </p>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-warning/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <lucide-icon name="files" class="w-8 h-8 text-warning"></lucide-icon>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl mb-3">Scattered Inputs</h3>
+                    <p class="text-text-secondary">
+                        Voice notes, emails, chats, todos — information scattered across 5+ apps
+                    </p>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <lucide-icon name="clock" class="w-8 h-8 text-accent"></lucide-icon>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl mb-3">Time Leakage</h3>
+                    <p class="text-text-secondary">
+                        Admin tasks and low-value work consume your most productive hours
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl mb-4">Your AI Business Coach</h2>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    Transform voice notes into prioritized action plans. Get decision support. 
+                    Track progress automatically. All in 2×3 minute daily sessions.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="mic" class="w-6 h-6 text-accent"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Voice-First Input</h3>
+                            <p class="text-sm text-text-secondary">Speak naturally</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        Dictate tasks, ideas, and decisions. Our AI transcribes and structures everything automatically.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-action/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="trending-up" class="w-6 h-6 text-action"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Pareto Prioritization</h3>
+                            <p class="text-sm text-text-secondary">20% → 80% impact</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        AI identifies your highest-impact tasks and creates focused daily Top 3 lists.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-success/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="calendar" class="w-6 h-6 text-success"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Smart Scheduling</h3>
+                            <p class="text-sm text-text-secondary">Time-block automatically</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        Integrates with your calendar to schedule tasks with proper buffers and energy awareness.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-warning/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="scale" class="w-6 h-6 text-warning"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Decision Assistant</h3>
+                            <p class="text-sm text-text-secondary">Pro/con analysis</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        Get structured decision support with risk assessment and next-best-action recommendations.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-error/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="bar-chart" class="w-6 h-6 text-error"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Progress Tracking</h3>
+                            <p class="text-sm text-text-secondary">Automated reports</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        Daily and weekly reviews show time saved, goals achieved, and optimization opportunities.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                            <lucide-icon name="zap" class="w-6 h-6 text-accent"></lucide-icon>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-semibold text-lg">Rapid Workflow</h3>
+                            <p class="text-sm text-text-secondary">2×3 min daily</p>
+                        </div>
+                    </div>
+                    <p class="text-text-secondary">
+                        Morning triage + evening review. Sustainable habits that fit your existing routine.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section id="calculator" class="py-20 bg-bg-elev-1">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="font-display font-bold text-4xl mb-4">Calculate Your Time Savings</h2>
+                <p class="text-xl text-text-secondary">
+                    See how much revenue time you can reclaim with AI Business Coach
+                </p>
+            </div>
+            
+            <div class="glass-card p-8 rounded-2xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-3">Weekly Admin Hours</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" id="adminHours" min="5" max="40" value="15" 
+                                       class="flex-1 h-2 bg-divider rounded-lg appearance-none cursor-pointer">
+                                <span id="adminHoursValue" class="text-accent font-bold text-lg w-12">15h</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-3">Your Hourly Rate ($)</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" id="hourlyRate" min="25" max="500" value="100" 
+                                       class="flex-1 h-2 bg-divider rounded-lg appearance-none cursor-pointer">
+                                <span id="hourlyRateValue" class="text-accent font-bold text-lg w-16">$100</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold mb-3">Team Size</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" id="teamSize" min="1" max="10" value="1" 
+                                       class="flex-1 h-2 bg-divider rounded-lg appearance-none cursor-pointer">
+                                <span id="teamSizeValue" class="text-accent font-bold text-lg w-12">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="text-center p-6 bg-surface/50 rounded-xl">
+                            <div class="text-3xl font-bold text-gradient mb-2" id="weeklySavings">$750</div>
+                            <div class="text-sm text-text-secondary">Weekly Savings</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4 bg-surface/30 rounded-lg">
+                                <div class="text-xl font-bold text-success" id="monthlySavings">$3,000</div>
+                                <div class="text-xs text-text-secondary">Monthly</div>
+                            </div>
+                            <div class="text-center p-4 bg-surface/30 rounded-lg">
+                                <div class="text-xl font-bold text-success" id="yearlySavings">$36,000</div>
+                                <div class="text-xs text-text-secondary">Yearly</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="text-sm text-text-secondary mb-4">
+                                Based on 30% time reduction from AI-powered prioritization and decision support
+                            </p>
+                            <button class="gradient-cta text-white px-8 py-3 rounded-xl font-semibold hover:opacity-95 transition-all">
+                                Create My 7-Day Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl mb-4">Real Results from Founders</h2>
+                <p class="text-xl text-text-secondary">
+                    See how entrepreneurs are reclaiming their time and focus
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-action rounded-full flex items-center justify-center text-white font-bold">
+                            MR
+                        </div>
+                        <div>
+                            <div class="font-semibold">Marcus Rodriguez</div>
+                            <div class="text-sm text-text-secondary">SaaS Founder</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-text-secondary mb-6">
+                        "The voice-to-action feature is a game-changer. Planning is 40% faster, and I never lose track of important decisions anymore."
+                    </blockquote>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-accent font-semibold">-6 hours/week</div>
+                        <div class="flex space-x-1">
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-success to-accent rounded-full flex items-center justify-center text-white font-bold">
+                            SK
+                        </div>
+                        <div>
+                            <div class="font-semibold">Sarah Kim</div>
+                            <div class="text-sm text-text-secondary">Marketing Agency</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-text-secondary mb-6">
+                        "Decision fatigue was killing my productivity. Now I get clear pro/con analysis in 60 seconds and can focus on high-impact work."
+                    </blockquote>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-accent font-semibold">-8 hours/week</div>
+                        <div class="flex space-x-1">
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-warning to-error rounded-full flex items-center justify-center text-white font-bold">
+                            DJ
+                        </div>
+                        <div>
+                            <div class="font-semibold">David Johnson</div>
+                            <div class="text-sm text-text-secondary">E-commerce</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-text-secondary mb-6">
+                        "The Pareto prioritization is brilliant. I'm finally working on the 20% that drives 80% of results. Revenue is up 25%."
+                    </blockquote>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-accent font-semibold">-5 hours/week</div>
+                        <div class="flex space-x-1">
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                            <lucide-icon name="star" class="w-4 h-4 text-warning fill-current"></lucide-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 bg-bg-elev-1">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-xl text-text-secondary">
+                    Start free, scale as you grow. No hidden fees, cancel anytime.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Starter Plan -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-2xl mb-2">Starter</h3>
+                        <div class="text-4xl font-bold mb-2">Free</div>
+                        <div class="text-text-secondary">Perfect for testing</div>
+                    </div>
+                    
+                    <div class="space-y-4 flex-1">
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Voice-to-text transcription</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Basic prioritization (100 tasks/mo)</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Daily reviews</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Email support</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-8 glass-card text-text-primary py-3 rounded-xl font-semibold hover:bg-surface/80 transition-all">
+                        Get Started Free
+                    </button>
+                </div>
+                
+                <!-- Professional Plan -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col border-2 border-accent relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-accent text-bg px-4 py-1 rounded-full text-sm font-semibold">
+                            Most Popular
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-2xl mb-2">Professional</h3>
+                        <div class="text-4xl font-bold mb-2">$79<span class="text-lg text-text-secondary">/mo</span></div>
+                        <div class="text-text-secondary">For serious founders</div>
+                    </div>
+                    
+                    <div class="space-y-4 flex-1">
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Everything in Starter</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Advanced AI analysis</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Decision assistant</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Unlimited tasks</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Calendar integration</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Priority support</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-8 gradient-cta text-white py-3 rounded-xl font-semibold hover:opacity-95 transition-all">
+                        Start Free Trial
+                    </button>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="glass-card p-8 rounded-2xl flex flex-col">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-2xl mb-2">Enterprise</h3>
+                        <div class="text-4xl font-bold mb-2">Custom</div>
+                        <div class="text-text-secondary">For teams</div>
+                    </div>
+                    
+                    <div class="space-y-4 flex-1">
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Everything in Professional</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>SSO & SAML</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>SLA guarantee</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>White-label options</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Dedicated CSM</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <lucide-icon name="check" class="w-5 h-5 text-success"></lucide-icon>
+                            <span>Custom integrations</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-8 glass-card text-text-primary py-3 rounded-xl font-semibold hover:bg-surface/80 transition-all">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-sm text-text-secondary">
+                    All plans include 7-day free trial • 30-day money-back guarantee • Cancel anytime
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-text-secondary">
+                    Everything you need to know about AI Business Coach
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(0)">
+                        <span class="font-semibold">How accurate is the voice transcription?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-0"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-0">
+                        <p class="text-text-secondary">
+                            We use state-of-the-art AI models (similar to Whisper) with 95%+ accuracy for clear audio. 
+                            The system learns your voice patterns and improves over time. You can always edit transcriptions if needed.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(1)">
+                        <span class="font-semibold">How does the Pareto prioritization work?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-1"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-1">
+                        <p class="text-text-secondary">
+                            Our AI analyzes your tasks based on revenue impact, time sensitivity, strategic importance, and effort required. 
+                            It then applies the 80/20 rule to surface the 20% of tasks that will drive 80% of your results.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(2)">
+                        <span class="font-semibold">What integrations are available?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-2"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-2">
+                        <p class="text-text-secondary">
+                            We integrate with Google Calendar, Outlook, Notion, Slack, WhatsApp, and major task management tools. 
+                            More integrations are added monthly based on user requests.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(3)">
+                        <span class="font-semibold">How secure is my data?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-3"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-3">
+                        <p class="text-text-secondary">
+                            All data is encrypted in transit and at rest. We use enterprise-grade security (SOC 2 Type II compliant) 
+                            and never store your voice recordings after transcription. You can export or delete your data anytime.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(4)">
+                        <span class="font-semibold">When will I see results?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-4"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-4">
+                        <p class="text-text-secondary">
+                            Most users see immediate time savings within the first week. The AI learns your patterns over 2-3 weeks 
+                            to provide increasingly accurate prioritization. Full optimization typically takes 30 days.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <button class="w-full p-6 text-left flex items-center justify-between hover:bg-surface/30 transition-colors" onclick="toggleFAQ(5)">
+                        <span class="font-semibold">Can I cancel anytime?</span>
+                        <lucide-icon name="chevron-down" class="w-5 h-5 text-text-secondary transform transition-transform" id="faq-icon-5"></lucide-icon>
+                    </button>
+                    <div class="px-6 pb-6 hidden" id="faq-content-5">
+                        <p class="text-text-secondary">
+                            Yes, you can cancel your subscription at any time from your account settings. 
+                            We also offer a 30-day money-back guarantee on all paid plans.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-hero">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-display font-bold text-4xl mb-4">
+                Ready to Reclaim Your Time?
+            </h2>
+            <p class="text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
+                Join thousands of entrepreneurs who've already transformed their productivity. 
+                Start your free trial today and see results in the first week.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="gradient-cta text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-95 transition-all transform hover:scale-105">
+                    Start Free Trial — 60s Setup
+                </button>
+                <button class="glass-card text-text-primary px-8 py-4 rounded-xl font-semibold hover:bg-surface/80 transition-all">
+                    Watch Demo First
+                </button>
+            </div>
+            
+            <div class="mt-8 flex items-center justify-center space-x-6 text-sm text-text-secondary">
+                <div class="flex items-center space-x-2">
+                    <lucide-icon name="shield-check" class="w-4 h-4 text-success"></lucide-icon>
+                    <span>30-day money-back guarantee</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <lucide-icon name="users" class="w-4 h-4 text-accent"></lucide-icon>
+                    <span>5,000+ active users</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <lucide-icon name="trending-up" class="w-4 h-4 text-success"></lucide-icon>
+                    <span>95% satisfaction rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-bg-elev-1">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-action rounded-lg flex items-center justify-center">
+                        <lucide-icon name="mic" class="w-5 h-5 text-white"></lucide-icon>
+                    </div>
+                    <span class="font-display font-bold text-xl">AI Coach</span>
+                </div>
+                
+                <div class="text-sm text-text-secondary">
+                    © 2024 AI Business Coach. All rights reserved.
+                </div>
+                
+                <div class="flex items-center space-x-6 text-sm">
+                    <a href="#" class="text-text-secondary hover:text-text-primary transition-colors">Privacy</a>
+                    <a href="#" class="text-text-secondary hover:text-text-primary transition-colors">Terms</a>
+                    <a href="#" class="text-text-secondary hover:text-text-primary transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Calculator functionality
+        function updateCalculator() {
+            const adminHours = parseInt(document.getElementById('adminHours').value);
+            const hourlyRate = parseInt(document.getElementById('hourlyRate').value);
+            const teamSize = parseInt(document.getElementById('teamSize').value);
+            
+            // Update display values
+            document.getElementById('adminHoursValue').textContent = adminHours + 'h';
+            document.getElementById('hourlyRateValue').textContent = '$' + hourlyRate;
+            document.getElementById('teamSizeValue').textContent = teamSize;
+            
+            // Calculate savings (30% time reduction)
+            const timeReduction = 0.3;
+            const weeklySavings = adminHours * hourlyRate * teamSize * timeReduction;
+            const monthlySavings = weeklySavings * 4;
+            const yearlySavings = weeklySavings * 52;
+            
+            // Update savings display
+            document.getElementById('weeklySavings').textContent = '$' + weeklySavings.toLocaleString();
+            document.getElementById('monthlySavings').textContent = '$' + monthlySavings.toLocaleString();
+            document.getElementById('yearlySavings').textContent = '$' + yearlySavings.toLocaleString();
+        }
+        
+        // Add event listeners to sliders
+        document.getElementById('adminHours').addEventListener('input', updateCalculator);
+        document.getElementById('hourlyRate').addEventListener('input', updateCalculator);
+        document.getElementById('teamSize').addEventListener('input', updateCalculator);
+        
+        // FAQ functionality
+        function toggleFAQ(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Initialize calculator
+        updateCalculator();
+        
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

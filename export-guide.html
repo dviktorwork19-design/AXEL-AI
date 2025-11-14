@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Coach - Export Guide</title>
+    <style>
+        :root {
+            --primary-bg: #0B1220;
+            --secondary-bg: #111827;
+            --surface: #0F172A;
+            --panel: #0E1330;
+            --text-primary: #E6EAF2;
+            --text-secondary: #A5B0C3;
+            --accent: #22D3EE;
+            --action: #6366F1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --divider: #1F2A44;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .section {
+            padding: 64px 0;
+        }
+        
+        .section-title {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+        
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 42, 68, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon.figma { background: rgba(99, 102, 241, 0.2); color: var(--action); }
+        .icon.export { background: rgba(34, 211, 238, 0.2); color: var(--accent); }
+        .icon.prototype { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .icon.assets { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            color: var(--text-secondary);
+        }
+        
+        .feature-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .spec-item {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .spec-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        
+        .spec-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--divider);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="section" style="background: linear-gradient(135deg, var(--accent) 0%, var(--action) 100%); color: white;">
+        <div class="container">
+            <h1 class="section-title" style="color: white;">Export Guide</h1>
+            <p style="text-align: center; font-size: 18px; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: 0 auto;">
+                Complete guide to exporting and implementing the AI Business Coach design
+            </p>
+        </div>
+    </div>
+
+    <!-- Quick Overview -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Quick Overview</h2>
+            <p class="section-subtitle">Everything you need to know about the design system</p>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-value">4</div>
+                    <div class="spec-label">Mobile Screens</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">24</div>
+                    <div class="spec-label">Custom Icons</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">8</div>
+                    <div class="spec-label">Component Types</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">393×852</div>
+                    <div class="spec-label">Mobile Frame</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">16:9</div>
+                    <div class="spec-label">Pitch Deck Ratio</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">100%</div>
+                    <div class="spec-label">Responsive</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Figma Implementation -->
+    <div class="section" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2 class="section-title">Figma Implementation</h2>
+            <p class="section-subtitle">Step-by-step guide to recreate the design in Figma</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon figma">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                            </svg>
+                        </div>
+                        Design System Setup
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Create color tokens with provided hex values</li>
+                        <li>Set up text styles for all typography levels</li>
+                        <li>Define spacing tokens (4px, 8px, 16px, 24px, 32px, 48px)</li>
+                        <li>Create border radius tokens (8px, 12px, 16px, 20px, 24px)</li>
+                        <li>Set up effect styles for shadows and blur</li>
+                    </ul>
+                    <div class="code-block">
+Colors:
+- Primary BG: #0B1220
+- Secondary BG: #111827
+- Surface: #0F172A
+- Accent: #22D3EE
+- Action: #6366F1
+- Success: #10B981
+- Warning: #F59E0B
+- Error: #EF4444
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon export">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        Asset Export
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Export all icons as SVG (24×24px)</li>
+                        <li>Export mobile screens as PNG (2x resolution)</li>
+                        <li>Generate PDF for pitch deck presentation</li>
+                        <li>Create component library file</li>
+                        <li>Export design tokens as JSON</li>
+                    </ul>
+                    <div class="code-block">
+Export Settings:
+- Icons: SVG, 24×24px, Outline stroke
+- Screens: PNG, 2x resolution
+- Pitch Deck: PDF, 1920×1080px
+- Components: Figma component library
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon prototype">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </div>
+                        Prototype Creation
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Link all CTA buttons to corresponding screens</li>
+                        <li>Add smart animate transitions (300ms ease-out)</li>
+                        <li>Create interactive components with variants</li>
+                        <li>Set up navigation flow between screens</li>
+                        <li>Add micro-interactions and hover states</li>
+                    </ul>
+                    <div class="code-block">
+Prototype Settings:
+- Device: iPhone 14 Pro (393×852)
+- Animation: Smart Animate, 300ms
+- Easing: Ease Out
+- Flow: User testing ready
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon assets">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        Asset Organization
+                    </h3>
+                    <ul class="feature-list">
+                        <li>Organize icons in dedicated page</li>
+                        <li>Create component variants for all states</li>
+                        <li>Group related elements in frames</li>
+                        <li>Use consistent naming conventions</li>
+                        <li>Create style guide documentation page</li>
+                    </ul>
+                    <div class="code-block">
+File Structure:
+- 📁 Design System
+- 📁 Mobile Screens
+- 📁 Components
+- 📁 Icons
+- 📁 Prototype Flow
+- 📁 Export Assets
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step-by-Step Guide -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Implementation Steps</h2>
+            <p class="section-subtitle">Detailed workflow for creating the complete design</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Create Design System</div>
+                            <div class="step-description">
+                                Set up color tokens, text styles, spacing, and effects in Figma. Use the provided hex values and create a comprehensive design system that can be easily maintained and updated.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Build Mobile Frame</div>
+                            <div class="step-description">
+                                Create an iPhone 14 Pro frame (393×852px) and set up the basic layout structure. Add status bar, navigation bar, and bottom navigation components.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Create Components</div>
+                            <div class="step-description">
+                                Build reusable components for buttons, cards, inputs, and navigation elements. Use auto layout and create variants for different states (default, hover, active, disabled).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Design Screens</div>
+                            <div class="step-description">
+                                Create all 4 mobile screens using the components and design system. Ensure consistent spacing, typography, and visual hierarchy throughout all screens.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Create Prototype</div>
+                            <div class="step-description">
+                                Link all interactive elements and create smooth transitions between screens. Use smart animate for professional micro-interactions and hover effects.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">Export Assets</div>
+                            <div class="step-description">
+                                Export all icons, screens, and components in required formats. Create a organized file structure and generate documentation for developers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Links -->
+    <div class="section" style="background: var(--secondary-bg);">
+        <div class="container">
+            <h2 class="section-title">Download Resources</h2>
+            <p class="section-subtitle">All files and assets ready for implementation</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon figma">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                            </svg>
+                        </div>
+                        Design System File
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Complete Figma design system with all tokens, components, and styles ready to use.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Color tokens and palettes</li>
+                        <li>Typography styles</li>
+                        <li>Component library</li>
+                        <li>Spacing and radius tokens</li>
+                        <li>Effect styles</li>
+                    </ul>
+                    <a href="#" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download .fig File
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon export">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        Mobile Screens
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        All mobile app screens exported as high-resolution PNG files with proper organization.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Main Landing Screen</li>
+                        <li>Features Screen</li>
+                        <li>Signup & Onboarding</li>
+                        <li>Demo Video Screen</li>
+                        <li>2x resolution (786×1704px)</li>
+                    </ul>
+                    <a href="#" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download PNG Screens
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon prototype">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </div>
+                        Icon Library
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Complete set of 24 custom icons in SVG format, organized by category and ready for implementation.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Navigation icons</li>
+                        <li>Feature icons</li>
+                        <li>Problem statement icons</li>
+                        <li>Utility icons</li>
+                        <li>24×24px, outline style</li>
+                    </ul>
+                    <a href="#" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download SVG Icons
+                    </a>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">
+                        <div class="icon assets">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        Pitch Deck
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Investor-ready pitch deck layout in 16:9 format with all key information and visual elements.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Problem statement slides</li>
+                        <li>Solution overview</li>
+                        <li>Market opportunity</li>
+                        <li>Business model</li>
+                        <li>16:9 format (1920×1080px)</li>
+                    </ul>
+                    <a href="#" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download PDF Deck
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Specifications -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Specifications</h2>
+            <p class="section-subtitle">Detailed technical requirements and guidelines</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title">Mobile App</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-value">393×852</div>
+                            <div class="spec-label">Frame Size</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">iPhone 14 Pro</div>
+                            <div class="spec-label">Device</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">60fps</div>
+                            <div class="spec-label">Animations</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">300ms</div>
+                            <div class="spec-label">Transitions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Export Settings</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-value">SVG</div>
+                            <div class="spec-label">Icons Format</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">2x</div>
+                            <div class="spec-label">PNG Scale</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">PDF</div>
+                            <div class="spec-label">Pitch Deck</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">RGB</div>
+                            <div class="spec-label">Color Space</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Design Tokens</h3>
+                    <div style="margin-top: 16px;">
+                        <div class="code-block">
+{
+  "colors": {
+    "primaryBg": "#0B1220",
+    "secondaryBg": "#111827",
+    "surface": "#0F172A",
+    "accent": "#22D3EE",
+    "action": "#6366F1",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "error": "#EF4444"
+  },
+  "typography": {
+    "fontPrimary": "Inter",
+    "fontDisplay": "Plus Jakarta Sans"
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "2xl": "48px"
+  }
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--secondary-bg); padding: 32px 0; text-align: center; border-top: 1px solid var(--divider);">
+        <div class="container">
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                AI Business Coach - Complete Export Package
+            </p>
+            <p style="color: var(--text-secondary); font-size: 14px;">
+                Ready for implementation • Mobile-first design • Premium quality • Export ready
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
