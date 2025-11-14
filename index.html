@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Business Coach - Cut 5-10 Hours Weekly</title>
     <meta name="description" content="Voice-first AI productivity coach for entrepreneurs. Save 5-10 hours weekly with smart prioritization and decision assistance.">
-    
+    <meta name="robots" content="noindex,nofollow" />
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
     
@@ -116,6 +117,24 @@
     </style>
 </head>
 <body class="dark">
+    <header class="sticky top-0 z-50 backdrop-blur bg-white/70 border-b">
+  <div class="max-w-5xl mx-auto flex items-center justify-between p-3">
+    <a href="/" class="font-semibold">AXEL AI</a>
+    <button id="menuBtn" class="md:hidden px-3 py-1 border rounded">Menu</button>
+    <nav id="menu" class="hidden md:flex gap-4">
+      <a href="/index.html">Home</a>
+      <a href="/component-library.html">Components</a>
+      <a href="/figma-design-system.html">Design System</a>
+      <a href="/export-guide.html">Export Guide</a>
+      <a href="/mobile-screens.html">Mobile</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const b=document.getElementById('menuBtn'), m=document.getElementById('menu');
+  b&&b.addEventListener('click',()=>m.classList.toggle('hidden'));
+</script>
+
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 glass-card">
         <div class="max-w-7xl mx-auto px-6 py-4">
